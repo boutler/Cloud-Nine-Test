@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using TechTestBackend;
+using TechTestBackend.DataBaseContext;
+using TechTestBackend.Repositories;
+using TechTestBackend.Services.Spotify;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContextFactory<SongstorageContext>(options => options.UseInMemoryDatabase("Songstorage"));
+
+// Scoped services
+builder.Services.AddScoped<SpotifyService>();
+builder.Services.AddScoped<HttpClient>();
+builder.Services.AddScoped<SongstorageContext>();
+builder.Services.AddScoped<SongStorageRepository>();
 
 var app = builder.Build();
 
